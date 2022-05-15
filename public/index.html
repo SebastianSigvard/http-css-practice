@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigvard`s Portfolio</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="container">
+
+            <h1 class="navbar-name"><span>Sig</span>vard</h1>
+
+            <img id="mobile-cta" class="mobile-menu" src="images/menu.svg" alt="Open navegation menu">
+
+            <nav>
+                <img id="mobile-exit" class="mobile-menu-exit" src="images/x.svg" alt="Close navegation menu">
+                <ul class="primary-nav">
+                    <li class="current"><a href="#">Home</a></li>
+                    <li><a href="calcount.html">Calories Counter</a></li>
+                </ul>
+
+                <ul class="secondary-nav">
+                    <li class="contact-cta"><a href="#">Contact me</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="main-panel">
+                <h1 class="hero-name"><a href="index.html">Sebastián Sigvard</a></h1>
+                <p class="subhead">Back End Developer</p>
+                <a href="https://www.linkedin.com/in/claudio-sebastian-sigvard/"><img src="images/linkedin.svg" alt="linkedin"></a>
+                <a href="https://github.com/SebastianSigvard"><img src="images/github.svg" alt="github"></a>
+                <a href="https://www.instagram.com/sebasig/"><img src="images/instagram.svg" alt="github"></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const mobileBtn = document.getElementById('mobile-cta');
+        const mobileBtnExit = document.getElementById('mobile-exit')
+        const nav = document.querySelector('nav');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.add('menu-btn');
+        });
+
+        mobileBtnExit.addEventListener('click', () => {
+            nav.classList.remove('menu-btn');
+        });
+
+    </script>
+
+</body>
+</html>
