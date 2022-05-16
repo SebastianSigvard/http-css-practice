@@ -66,7 +66,7 @@ section {
 .hero {
   text-align: center;
   background-color: var(--primary-color);
-  margin: 12.5% 3em 0% 3em;
+  margin: 12.5% 1em 0% 1em;
   padding: 2em;
   border-radius: 1em;
   word-wrap: break-word;
@@ -74,7 +74,7 @@ section {
 }
 
 .hero .hero-name {
-  font-size: 3.5em;
+  font-size: 3em;
   margin-top: 0.4em;
   margin-bottom: 0.2em;
 }
@@ -185,6 +185,13 @@ nav li a:hover {
   .hero {
     margin: 12.5% 30% 0% 30%;
   }
+
+  .hero .hero-name {
+    font-size: 3.5em;
+    margin-top: 0.4em;
+    margin-bottom: 0.2em;
+  }
+  
 }
 
 
@@ -199,4 +206,9 @@ input {
 
 h2 {
   color: #f2f2f2;
+}
+
+textarea {
+  width: 300px;
+  height: 150px;
 }

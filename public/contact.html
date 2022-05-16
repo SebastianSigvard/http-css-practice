@@ -21,11 +21,11 @@
                 <img id="mobile-exit" class="mobile-menu-exit" src="images/x.svg" alt="Close navegation menu">
                 <ul class="primary-nav">
                     <li><a href="/">Home</a></li>
-                    <li class="current"><a href="#">Calories Counter</a></li>
+                    <li><a href="calcount.html">Calories Counter</a></li>
                 </ul>
 
                 <ul class="secondary-nav">
-                    <li class="contact-cta"><a href="contact.html">Contact me</a></li>
+                    <li class="contact-cta"><a href="#">Contact me</a></li>
                 </ul>
             </nav>
         </div>
@@ -33,20 +33,22 @@
 
     <section class="hero">
         <div class="container">
-            <h2>REGISTRATION</h2>
-            <form id="registration-form" class="main-panel">
-                <label><strong>Username</strong></label> 
+            <h2>Send Me a Message</h2>
+            <form id="contact-form" class="main-panel">
+                <label><strong>Name</strong></label> 
                 <br>  
-                <input id="user-name-reg" type="text" placeholder="Enter Username" name="username" required>
+                <input id="contact-name" type="text" name="name" required>
                 <br>
-                <label><strong>Password</strong></label>
+                <label><strong>Your Email</strong></label>
                 <br>
-                <input id="password-reg" type="password" placeholder="Enter Password" name="password" required>
+                <input id="contact-email" type="text" name="email" required>
                 <br>
-                <button id="submit-button-reg" type="submit">Register</button>
+                <label><strong>Message</strong></label>
                 <br>
-                <a href="calcount.html">Back to Login</a>
-            </form>
+                <textarea id="contact-message" name="message"></textarea>
+                <br>
+                <button id="send-button" type="submit">Send</button>
+            </form>        
         </div>
     </section>
 
@@ -62,8 +64,9 @@
         mobileBtnExit.addEventListener('click', () => {
             nav.classList.remove('menu-btn');
         });
+
     </script>
-    <script type="module" src="scripts/register.js"></script>
+    <script type="module" src="scripts/contact.js"></script>
 
 </body>
 </html>
