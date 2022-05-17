@@ -5,6 +5,7 @@ const path       = require('path');
 const mongoose = require('mongoose');
 const bcrypt   = require('bcryptjs');
 const User     = require('./model/user');
+const { Food } = require('./model/food');
 const { use }  = require('express/lib/application');
 const jwt      = require('jsonwebtoken');
 
@@ -13,7 +14,7 @@ const nodemailer = require('nodemailer');
 const JWT_SECRET = "kjhlnbsdkfjgh@#$%(@#)(*&NCKAJBXC&@)%_asddddddddddasdaxfvxzcv"
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/calCounter');
+mongoose.connect('mongodb://localhost:27017/calCount');
 
 app.use(express.static('./public'))
 app.use(bodyParser.json());
@@ -50,7 +51,7 @@ app.post('/send_contactme', async (request, response) => {
 
     transporter.sendMail(mail, (err, info) => {
         if(err) {
-            console.log(err);
+            console.error(err);
             return response.json({status: "error", error: "An error has ocurred"});
         } else {
 
@@ -105,7 +106,6 @@ app.post('/register', async (request, response) => {
 
     try {
         const res = await User.create( {userName, password} );
-        console.log('user created succesfully');
     
     } catch(error) {
         if(error.code === 11000) { //duplicated key
@@ -116,6 +116,59 @@ app.post('/register', async (request, response) => {
     }
 
     response.json({status: "ok"});
+});
+
+app.post('/calApi/add-food', async (request, response) => {
+    const {token, fields} = request.body;
+
+    let userName;
+    try {
+        const user_data = jwt.verify(token, JWT_SECRET);
+        userName = user_data.username;
+    } catch(error) {
+        response.json({status: "error", error: "Corronped Token"});
+    }
+
+    const user = await User.findOne({userName}).lean();
+
+    if( ! user ) return response.json({status: "error", error: "Invalid Username"});
+
+    const res = await Food.create( {foodName: fields.name, carbs: fields.carbs, protein: fields.protein, fat: fields.fat} );
+
+    await User.findByIdAndUpdate( user._id, 
+        { "$push": { "food": res._id } }
+    );
+
+    response.json({status: "ok"});
+});
+
+app.post('/calApi/get-user-food', async (request, response) => {
+    const {token} = request.body;
+
+    let userName;
+    try {
+        const user_data = jwt.verify(token, JWT_SECRET);
+        userName = user_data.username;
+    } catch(error) {
+        response.json({status: "error", error: "Corronped Token"});
+    }
+
+    const user = await User.findOne({userName}).lean();
+
+    if( ! user ) return response.json({status: "error", error: "Invalid Username"});
+
+    let documents = [];
+
+    for(const item of user.food) {
+        let res = await Food.findById(item._id).lean();
+        documents.push( {
+            name:    res.foodName, 
+            carbs:   res.carbs,
+            protein: res.protein, 
+            fat:     res.fat} );
+    };
+
+    response.json({status: "ok", documents});
 });
 
 // app.post('/change-password', async (request, response) => {
