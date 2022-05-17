@@ -38,25 +38,14 @@
 
     <section class="hero">
         <div class="container">
-            <h2>Calcount</h2>
+            <h2 id="cal-title">Calories Counter</h2>
 
             <div class="container" id="main">
                 <h2>Add food</h2>
                 <form id="create-form">
-                  <label for="create-name">Food name:</label>
-                  <select id="create-name">
-                    <option value="">Please select</option>
-                    <!-- these are the only values accepted by the API -->
-                    <option value="pizza">Pizza</option>
-                    <option value="pasta">Pasta</option>
-                    <option value="burger">Burger</option>
-                    <option value="soup">Soup</option>
-                    <option value="salad">Salad</option>
-                    <option value="apple">Apple</option>
-                    <option value="peach">Peach</option>
-                    <option value="cider">Cider</option>
-                  </select>
                   <div class="nutrition-values">
+                    <label for="create-name">Food name:</label>
+                    <input id="create-name" type="text/" placeholder="Name">
                     <label for="create-carbs">Carbs:</label>
                     <input
                       class="nutrition-input"
@@ -85,12 +74,12 @@
                       placeholder="0g"
                     />
                     <div></div>
-                    <input
-                      type="submit"
-                      class="btn btn-default create-submit"
-                      value="Add"
-                    />
                   </div>
+                  <input
+                    type="submit"
+                    class="btn btn-default create-submit"
+                    value="Add"
+                  />
                 </form>
                 <h2>Stats</h2>
                 <canvas id="app-chart" width="100%"></canvas>
