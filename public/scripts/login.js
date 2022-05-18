@@ -12,7 +12,6 @@ form.addEventListener('submit', event => {
     .then( data => {
         if(data.status === 'ok') {
             localStorage.setItem('token', data.data);
-            alert("Success on login");
             window.location.href = 'calcount.html';
         } else {
             alert(data.error);

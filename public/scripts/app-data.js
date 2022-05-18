@@ -36,4 +36,8 @@ export default class AppData {
       this.getTotalFat() * 9
     );
   }
+
+  reset() {
+    this.food = [];
+  }
 }

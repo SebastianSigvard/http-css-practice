@@ -1,9 +1,8 @@
 import Fw from './fetch-wrapper.js'
 import { capitalize, calculateCalories } from "./helpers.js";
 import AppData from "./app-data.js";
-// import "snackbar/dist/snackbar.min.css";
-// import Chart from require("chartjs");
-// const snackbar = require("snackbar");
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 let API = new Fw('/calApi/');
 
@@ -52,11 +51,9 @@ form.addEventListener("submit", (event) => {
         window.location.href = 'login.html';
         return;
       }
-  
-    //   snackbar.show("Food added successfully.");
-  
+        
       displayEntry(name.value, carbs.value, protein.value, fat.value);
-    //   render();
+      render();
   
       name.value = "";
       carbs.value = "";
@@ -83,41 +80,37 @@ const init = () => {
   });
 };
 
-// let chartInstance = null;
-// const renderChart = () => {
-//   chartInstance?.destroy();
-//   const context = document.querySelector("#app-chart").getContext("2d");
+let chartInstance = null;
+const renderChart = () => {
+  chartInstance?.destroy();
+  const context = document.querySelector("#app-chart").getContext("2d");
 
-//   chartInstance = new Chart(context, {
-//     type: "bar",
-//     data: {
-//       labels: ["Carbs", "Protein", "Fat"],
-//       datasets: [
-//         {
-//           label: "Macronutrients",
-//           data: [
-//             appData.getTotalCarbs(),
-//             appData.getTotalProtein(),
-//             appData.getTotalFat(),
-//           ],
-//           backgroundColor: ["#25AEEE", "#FECD52", "#57D269"],
-//           borderWidth: 3, // example of other customization
-//         },
-//       ],
-//     },
-//     options: {
-//       scales: {
-//         yAxes: [
-//           {
-//             ticks: {
-//               beginAtZero: true,
-//             },
-//           },
-//         ],
-//       },
-//     },
-//   });
-// };
+  chartInstance = new Chart(context, {
+    type: "bar",
+    data: {
+      labels: ["Carbs", "Protein", "Fat"],
+      datasets: [
+        {
+          labels: ["Macronutrients", "2", "1"],
+          data: [
+            appData.getTotalCarbs(),
+            appData.getTotalProtein(),
+            appData.getTotalFat(),
+          ],
+          backgroundColor: ["#25AEEE", "#FECD52", "#57D269"],
+          borderWidth: 3, // example of other customization
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+};
 
 const totalCalories = document.querySelector("#total-calories");
 
@@ -126,11 +119,26 @@ const updateTotalCalories = () => {
 };
 
 const render = () => {
-  // renderChart();
+  renderChart();
   updateTotalCalories();
 };
 
+let clean_entrys_button = document.querySelector('#clean-entrys');
 let log_out_button = document.querySelector('#log-out');
+
+clean_entrys_button.addEventListener('click', event => { 
+  API.post("clean-user-entrys", {token: localStorage.getItem('token')})
+  .then((data) => {
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+
+    list.innerHTML = "";
+    appData.reset();
+    init()
+  });
+});
 
 log_out_button.addEventListener('click', event => { 
     localStorage.removeItem('token');

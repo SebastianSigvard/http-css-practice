@@ -11,6 +11,8 @@ form.addEventListener('submit', event => {
     .then( data => {
         if(data.status === 'ok') {
             alert("Success on registration");
+            window.location.href = 'login.html';
+            return;    
         } else {
             alert(data.error);
         }

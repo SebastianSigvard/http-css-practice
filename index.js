@@ -1,14 +1,12 @@
 const bodyParser = require('body-parser');
 const express    = require('express');
 const path       = require('path');
-
-const mongoose = require('mongoose');
-const bcrypt   = require('bcryptjs');
-const User     = require('./model/user');
-const { Food } = require('./model/food');
-const { use }  = require('express/lib/application');
-const jwt      = require('jsonwebtoken');
-
+const mongoose   = require('mongoose');
+const bcrypt     = require('bcryptjs');
+const User       = require('./model/user');
+const { Food }   = require('./model/food');
+const { use }    = require('express/lib/application');
+const jwt        = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 
 const JWT_SECRET = "kjhlnbsdkfjgh@#$%(@#)(*&NCKAJBXC&@)%_asddddddddddasdaxfvxzcv"
@@ -22,6 +20,10 @@ app.use(bodyParser.json());
 
 app.get('/', async (request, response) => {
     response.sendFile( path.resolve(__dirname,'./public/index.html'));
+});
+
+app.get('/dist/main.js', async (request, response) => {
+    response.sendFile( path.resolve(__dirname,'./dist/main.js'));
 });
 
 app.post('/send_contactme', async (request, response) => {
@@ -42,21 +44,19 @@ app.post('/send_contactme', async (request, response) => {
                     <a href='mailto:${email}'>${email}</a><p>${message}</p></p>`;
 
     let mail = {
-        from: "contactmesigvard@gmail.com",
-        to:   "sebastiansigvard@gmail.com",
+        from:    "contactmesigvard@gmail.com",
+        to:      "sebastiansigvard@gmail.com",
         subject: "Mail From Contact Form",
-        text: textBody,
-        html: htmlBody
+        text:    textBody,
+        html:    htmlBody
     };
 
     transporter.sendMail(mail, (err, info) => {
         if(err) {
             console.error(err);
             return response.json({status: "error", error: "An error has ocurred"});
-        } else {
-
-            response.json({status: "ok", data: `Message sent with ID: ${info.messageId}`})
-        }
+        } 
+        response.json({status: "ok", data: `Message sent with ID: ${info.messageId}`})
     });
 });
 
@@ -170,6 +170,29 @@ app.post('/calApi/get-user-food', async (request, response) => {
 
     response.json({status: "ok", documents});
 });
+
+app.post('/calApi/clean-user-entrys', async (request, response) => {
+    const {token} = request.body;
+
+    let userName;
+    try {
+        const user_data = jwt.verify(token, JWT_SECRET);
+        userName = user_data.username;
+    } catch(error) {
+        response.json({status: "error", error: "Corronped Token"});
+    }
+
+    const user = await User.findOne({userName}).lean();
+
+    if( ! user ) return response.json({status: "error", error: "Invalid Username"});
+
+    await User.findByIdAndUpdate( user._id, 
+        { "$set": { "food": [] } }
+    );
+
+    response.json({status: "ok"});
+});
+
 
 // app.post('/change-password', async (request, response) => {
 //     //TODO:

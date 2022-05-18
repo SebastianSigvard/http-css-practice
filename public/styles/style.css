@@ -92,6 +92,7 @@ nav.menu-btn {
   display: block;
   width: 30%;
   height: 300px;
+  border-radius: 1.5em;
 }
 
 nav {
@@ -312,7 +313,7 @@ button {
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  margin: 20px 10px 10px 0;
+  margin: 20px 10px 10px 10px;
   padding: 10px 30px;
   text-decoration: none;
   max-width: 120px;
@@ -320,6 +321,10 @@ button {
   display: inline-block;
   transition: background-color 220ms, transform 220ms;
   border: none;
+}
+
+#clean-entrys {
+  max-width: 200px;
 }
 
 .create-submit {
@@ -331,4 +336,10 @@ button {
   width: 100px !important;
   box-sizing: border-box;
   margin-top: 10px;
+}
+
+#app-chart {
+  background-color: white;
+  border: 0.2em;
+  border-radius: 10px;
 }
