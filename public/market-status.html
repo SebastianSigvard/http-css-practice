@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigvard`s Portfolio</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="container">
+
+            <h1 class="navbar-name"><span>Sig</span>vard</h1>
+
+            <img id="mobile-cta" class="mobile-menu" src="images/menu.svg" alt="Open navegation menu">
+
+            <nav>
+                <img id="mobile-exit" class="mobile-menu-exit" src="images/x.svg" alt="Close navegation menu">
+                <ul class="primary-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="calcount.html">Calories Counter</a></li>
+                    <li class="current"><a href="market-status.html">Market Status</a></li>
+                </ul>
+
+                <ul class="secondary-nav">
+                    <li class="contact-cta"><a href="contact.html">Contact me</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <h2>API REST</h2>
+            <h3>Tips</h3>
+            <form id="tips-api" class="main-panel">
+                <label><strong>Currency Pair</strong></label> 
+                <br>  
+                <input id="currency-pair-tip" type="text" placeholder="BTC-USD" name="currency pair" required>
+                <br>
+                <button id="tips-api-button" type="submit">Get</button>
+                <br>
+                <div id="tips-api-result"></div>
+            </form>
+            <h3>Calculate Price</h3>
+            <form id="calculate-api" class="main-panel">
+                <label><strong>Currency Pair</strong></label> 
+                <br>  
+                <input id="currency-pair-calc" type="text" placeholder="BTC-USD" name="currency pair" required>
+                <br>
+                <label><strong>Operation</strong></label> 
+                <br>  
+                <input id="operation" type="text" placeholder="buy/sell" name="Operation" required>
+                <br>
+                <label><strong>Amount</strong></label> 
+                <br>  
+                <input id="amount" type="number" placeholder=0 name="Amount" required>
+                <br>
+                <label><strong>Cap (optional)</strong></label> 
+                <br>  
+                <input id="cap" type="number" placeholder=0 name="cap" value="0" required>
+                <br>
+                <button id="calc-api-button" type="submit">Post</button>
+                <br>
+                <div id="tips-calc-result"></div>
+            </form>
+            <h2>WEBScoket</h2>
+            <h3>Tips</h3>
+            <form id="tips-ws" class="main-panel">
+                <label><strong>Currency Pair</strong></label> 
+                <br>  
+                <input id="currency-pair-ws" type="text" placeholder="BTC-USD" name="currency pair" required>
+                <br>
+                <button id="tips-ws-button" type="submit">Send</button>
+                <br>
+                <div id="tips-ws-result"></div>
+            </form>
+            <h3>Calculate Price</h3>
+            <form id="calculate-ws" class="main-panel">
+                <label><strong>Currency Pair</strong></label> 
+                <br>  
+                <input id="currency-pair-calc-ws" type="text" placeholder="BTC-USD" name="currency pair" required>
+                <br>
+                <label><strong>Operation</strong></label> 
+                <br>  
+                <input id="operation-ws" type="text" placeholder="buy/sell" name="Operation" required>
+                <br>
+                <label><strong>Amount</strong></label> 
+                <br>  
+                <input id="amount-ws" type="number" placeholder=0 name="Amount" required>
+                <br>
+                <label><strong>Cap (optional)</strong></label> 
+                <br>  
+                <input id="cap-ws" type="number" placeholder=0 name="cap" value="0" required>
+                <br>
+                <button id="calc-api-button-ws" type="submit">Send</button>
+                <br>
+                <div id="tips-calc-result-ws"></div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        const mobileBtn = document.getElementById('mobile-cta');
+        const mobileBtnExit = document.getElementById('mobile-exit')
+        const nav = document.querySelector('nav');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.add('menu-btn');
+        });
+
+        mobileBtnExit.addEventListener('click', () => {
+            nav.classList.remove('menu-btn');
+        });
+
+    </script>
+    <script type="module" src="scripts/market_status.js"></script>
+
+</body>
+</html>

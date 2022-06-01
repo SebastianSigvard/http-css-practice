@@ -12,7 +12,7 @@ const nodemailer = require('nodemailer');
 const JWT_SECRET = "kjhlnbsdkfjgh@#$%(@#)(*&NCKAJBXC&@)%_asddddddddddasdaxfvxzcv"
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/calCount');
+mongoose.connect('mongodb+srv://sigvard:Pomodoro25@cluster0.l1qg2.mongodb.net/?retryWrites=true&w=majority');
 
 app.use(express.static('./public'))
 app.use(bodyParser.json());
@@ -200,6 +200,6 @@ app.post('/calApi/clean-user-entrys', async (request, response) => {
 
 //###############################################################################
 
-app.listen(5000, () => { 
-    console.log('App aviable on http://localhost:5000');
+app.listen(process.env.PORT || 3000, () => { 
+    console.log('App aviable on http://localhost:3000');
 });
